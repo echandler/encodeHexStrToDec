@@ -7,20 +7,21 @@ function encodeHexStrToDec (p_str, p_radix) {
     
     p_radix = p_radix || 36;
 
-    for (let t = 0; t < p_str.length; t++){
+    for (let n = 0; n < p_str.length; n++) {
 
-        if (alphabet.indexOf(p_str[t]) !== -1 && alphabet.indexOf(p_str[t]) < p_radix){
+        if (alphabet.indexOf(p_str[n]) !== -1 && alphabet.indexOf(p_str[n]) < p_radix) {
+              
+            // 
+            convertedNum += p_radix**(p_str.length-n-1) * alphabet.indexOf(p_str[n]);
 
-              convertedNum += (p_radix**(p_str.length-t-1) * alphabet.indexOf(p_str[t]));
+            if (!Number.isSafeInteger(convertedNum)) {
 
-              if (!Number.isSafeInteger(convertedNum)){
-
-                  throw new Error('Generated number can not be larger than '+ Number.MAX_SAFE_INTEGER); 
-              }
+                throw new Error('Generated number can not be larger than '+ Number.MAX_SAFE_INTEGER); 
+            }
 
         } else {
 
-            throw new Error('"'+ p_str[t] +'" is not a valid base'+ p_radix +' symbol');
+            throw new Error('"'+ p_str[n] +'" is not a valid base'+ p_radix +' symbol');
         }
     }
 
